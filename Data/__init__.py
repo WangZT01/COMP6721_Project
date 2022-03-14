@@ -1,6 +1,6 @@
 import PIL.Image
 import os
-
+import re
 def convert(address):
     dir = "./" + address + "/"
     file_list = os.listdir(dir)
@@ -12,12 +12,13 @@ def convert(address):
         if filename.endswith("jpeg") or filename.endswith("png"):
             image = image.convert('RGB')
         try:
-            image.save("./1/"+"SurgicalMask_" + str(index) + ".jpg")
+            address = re.sub('\s+', '', str).strip() +"_"
+            image.save("./1/" + address + str(index) + ".jpg")
         except:
             print("error: " + path)
         index += 1
 
 if __name__ == '__main__':
-   dir = ["Surgical mask", "Cloth mask", "No face mask", "N95 mask", "N95 mask with valve"]
+   dir = ["Surgical Mask", "Cloth Mask", "No Face Mask", "N95 Mask", "N95 Mask With Valve"]
    for address in dir:
     convert(address)
