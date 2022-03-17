@@ -45,7 +45,7 @@ class MultiLayerFCNet(nn.Module):
         x = F.relu(self.linear2(x))
         x = F.relu(self.linear3(x))
         x = self.linear4(x)
-        return F.log_softmax(x)
+        return F.log_softmax(x,dim=1)
     
 model = MultiLayerFCNet(D_in, H, D_out)
 criterion = torch.nn.CrossEntropyLoss()

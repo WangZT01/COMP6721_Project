@@ -1,35 +1,36 @@
 import time
-import matplotlib.pyplot as plt
-import numpy as np
-import torch
-import torch.nn as nn
-import torch.optim as optim
-import torchvision.datasets
-import torchvision.transforms as transforms
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import plot_confusion_matrix
 from skorch import NeuralNetClassifier
-from torch.utils.data import random_split
+import numpy as np
+import matplotlib.pyplot as plt
+import torch
+import torch.nn as nn
+from torch import optim
+from torchvision import datasets
+import torchvision.transforms as transforms
+from torch.utils import data
 
 
-tic = time.time()
-num_epochs = 4
-num_classes = 10
-learning_rate = 0.001
-transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
-trainset = torchvision.datasets.CIFAR10(root='./data', train=True, download=True, transform=transform)
-testset = torchvision.datasets.CIFAR10(root='./data', train=False, download=True, transform=transform)
-m = len(trainset)
-train_data, val_data = random_split(trainset, [int(m - m * 0.2), int(m * 0.2)])
-DEVICE = torch.device("cpu")
-y_train = np.array([y for x, y in iter(train_data)])
-classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
+
+def buildDatasets():
+
+    transform = transforms.Compose([transforms.Resize([224, 224]), transforms.ToTensor()])
+    data_set = datasets.ImageFolder(root = '../Data/', transform = transform)
+    n = len(data_set)
+    n_test = int( n / 4 )
+    n_train = n - n_test
+
+    X_train, X_test = data.random_split(data_set, (n_train, n_test))
+    y_train = np.array([y for x, y in iter(X_train)])
+    y_test = np.array([y for x, y in iter(X_test)])
+    return X_train, y_train, X_test, y_test
 
 class CNN(nn.Module):
     def __init__(self):
         super(CNN, self).__init__()
         self.conv_layer = nn.Sequential(
-            nn.Conv2d(in_channels=3, out_channels=32, kernel_size=3, padding=1),
+            nn.Conv2d(in_channels= 3, out_channels=32, kernel_size=3, padding=1),
             nn.BatchNorm2d(32),
             nn.LeakyReLU(inplace=True),
             nn.Conv2d(in_channels=32, out_channels=32, kernel_size=3, padding=1),
@@ -46,12 +47,12 @@ class CNN(nn.Module):
         )
         self.fc_layer = nn.Sequential(
             nn.Dropout(p=0.1),
-            nn.Linear(8 * 8 * 64, 1000),
+            nn.Linear(4 * 224 * 224, 1000),
             nn.ReLU(inplace=True),
             nn.Linear(1000, 512),
             nn.ReLU(inplace=True),
             nn.Dropout(p=0.1),
-            nn.Linear(512, 10)
+            nn.Linear(512, 5)
         )
 
     def forward(self, x):
@@ -64,6 +65,8 @@ class CNN(nn.Module):
 
 
 if __name__ == '__main__':
+    X_train, y_train, X_test, y_test = buildDatasets()
+    tic = time.time()
     torch.manual_seed(0)
     net = NeuralNetClassifier(
         CNN,
@@ -74,15 +77,14 @@ if __name__ == '__main__':
         batch_size=64,
         optimizer=optim.Adam,
         criterion=nn.CrossEntropyLoss,
-        device=DEVICE
+        device=torch.device("cpu")
     )
-    net.fit(train_data, y=y_train)
-
-    y_pred = net.predict(testset)
-    y_test = np.array([y for x, y in iter(testset)])
+    net.fit(X_train, y = y_train)
+    y_pred = net.predict(X_test)
     accuracy_score(y_test, y_pred)
-    plot_confusion_matrix(net, testset, y_test.reshape(-1, 1))
+    plot_confusion_matrix(net, X_test, y_test.reshape(-1, 1))
     plt.show()
 
     toc = time.time()
     print('duration=', toc - tic)
+
