@@ -12,7 +12,7 @@ import torchvision.transforms as transforms
 from torch.utils import data
 
 num_epochs = 4
-num_classes = 10
+
 learning_rate = 0.001
 
 def buildDatasets():
