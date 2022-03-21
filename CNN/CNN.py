@@ -27,6 +27,22 @@ def buildDatasets():
 
     return train_loader, y_train, test_loader, y_test
 
+def test(model):
+
+    model.eval()
+    with torch.no_grad():
+        correct = 0
+    total = 0
+    for images, labels in test_loader:
+        outputs = model_load(images)
+        _, predicted = torch.max(outputs.data, 1)
+        total += labels.size(0)
+        correct += (predicted == labels).sum().item()
+        print('Test Accuracy of the model on the test images: {} %'.format((correct / total) * 100))
+
+    toc = time.time()
+    print('duration=', toc - tic)
+
 class CNN(nn.Module):
     def __init__(self):
         super(CNN, self).__init__()
@@ -68,6 +84,7 @@ if __name__ == '__main__':
 
     tic = time.time()
     train_loader, y_train, test_loader, y_test = buildDatasets()
+
     model = CNN()
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
@@ -96,16 +113,6 @@ if __name__ == '__main__':
                 print('Epoch [{}/{}], Step [{}/{}], Loss: {:.4f}, Accuracy: {:.2f}%'
                       .format(epoch + 1, num_epochs, i + 1, total_step, loss.item(), (correct / total) * 100))
     torch.save(model, 'CNN_Model.pkl')
-    model.eval()
-    with torch.no_grad():
-        correct = 0
-    total = 0
-    for images, labels in test_loader:
-        outputs = model(images)
-        _, predicted = torch.max(outputs.data, 1)
-        total += labels.size(0)
-        correct += (predicted == labels).sum().item()
-        print('Test Accuracy of the model on the test images: {} %'.format((correct / total) * 100))
+    model_load = torch.load('CNN_Model.pkl')
 
-    toc = time.time()
-    print('duration=', toc - tic)
+    test(model_load)
