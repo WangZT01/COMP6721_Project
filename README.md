@@ -20,6 +20,6 @@
 - Precision	 | 22.7612%	  | 21.1397%	|   21.2092%	   |  28.1572%	  |   21.4836%
 - Recall	   | 56.4815%	  | 52.7523%	|   53.125%	     |  548270%	    |   54.5233%
 - F1-measure | 32.4468%   |	30.1837%	|   30.3155%	   |  37.2064%	  |   30.8224%
-The Confusion Matrix can find on our report due to the format reason of Readme. It is hard to present clearly.
+-The Confusion Matrix can find on our report due to the format reason of Readme. It is hard to present clearly.
 
                   
