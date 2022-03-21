@@ -1,12 +1,7 @@
 import time
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import plot_confusion_matrix
-from skorch import NeuralNetClassifier
 import numpy as np
-import matplotlib.pyplot as plt
 import torch
 import torch.nn as nn
-from torch import optim
 from torchvision import datasets
 import torchvision.transforms as transforms
 from torch.utils import data
@@ -110,7 +105,7 @@ if __name__ == '__main__':
         _, predicted = torch.max(outputs.data, 1)
         total += labels.size(0)
         correct += (predicted == labels).sum().item()
-        print('Test Accuracy of the model on the 10000 test images: {} %'.format((correct / total) * 100))
+        print('Test Accuracy of the model on the test images: {} %'.format((correct / total) * 100))
 
     toc = time.time()
     print('duration=', toc - tic)
