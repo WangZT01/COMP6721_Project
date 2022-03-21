@@ -37,7 +37,7 @@ def get_number(address):
 
 def print_data(dir, data_list):
 
-    plt.figure(figsize = [10,10])
+    plt.figure(figsize = [10,5])
     plt.bar(x=dir, height=data_list, color = ['r', 'g', 'b', 'yellow', 'black'])
     plt.title("Datasets of Masks")
     plt.xlabel("Type")
