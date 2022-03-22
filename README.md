@@ -5,7 +5,7 @@
 # Machine Learning Farmeworks: 
 -Pytorch 1.3.1, sklearn 0.24.2, skorch 0.11.0
 # files included
-- In CNN folder, there are three files. CNN.py is the CNN model we established. And it is also the main funtion of our code. The CNN_Structure.png shows the sual CNN structure of our model. The CNN_Skorch is a sklearn compatible neural network model that warps PyTorch.
+- In CNN folder, there are three files. (1. CNN.py is the CNN model we established. And it is also the main funtion of our code. (2.The CNN_Structure.png shows the sual CNN structure of our model. (3.The CNN_Skorch is a sklearn compatible neural network model that warps PyTorch.
 - In data folder, it contains five different types of pictures: Cloth Mask(432)/ N95 Mask with Valve(436)/ N95 Mask(416)/ No Face Mask(549)/ Surgical Mask(409)
 - DataNamed.py is using to processing the data. We use OS, re PIL.Image and python pandas to process our data from data folder and import to our model.
 - DataSet.png shows the Histogram of data.
