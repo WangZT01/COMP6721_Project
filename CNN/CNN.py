@@ -27,8 +27,9 @@ def buildDatasets():
 
     return train_loader, y_train, test_loader, y_test
 
-def test(model):
+def test(model, test_loader):
 
+    tic = time.time()
     model.eval()
     with torch.no_grad():
         correct = 0
@@ -82,7 +83,6 @@ class CNN(nn.Module):
 
 if __name__ == '__main__':
 
-    tic = time.time()
     train_loader, y_train, test_loader, y_test = buildDatasets()
 
     model = CNN()
@@ -91,6 +91,7 @@ if __name__ == '__main__':
     total_step = len(train_loader)
     loss_list = []
     acc_list = []
+    print("training")
     for epoch in range(num_epochs):
         for i, (images, labels) in enumerate(train_loader):
             # Forward pass
@@ -113,6 +114,8 @@ if __name__ == '__main__':
                 print('Epoch [{}/{}], Step [{}/{}], Loss: {:.4f}, Accuracy: {:.2f}%'
                       .format(epoch + 1, num_epochs, i + 1, total_step, loss.item(), (correct / total) * 100))
     torch.save(model.state_dict(), 'CNN_Model.pkl')
-    model_load = model.load_state_dict(torch.load('CNN_Model.pkl'))
-
-    test(model_load)
+    print("model save successfully")
+    model_load = CNN()
+    model_load.load_state_dict(torch.load('CNN_Model.pkl'), strict=False)
+    print("success")
+    test(model_load, test_loader)
