@@ -16,10 +16,10 @@
 # The results shows the accuracy for our dataset, one accuracy each. And the duration for our model.
 
 - Classes    | Cloth Mask	| N95 Mask	| N95 With Valve | No Face Mask | Surgical Mask
-- Accuracy	 | 54.6875%	  | 52.5625%	|   54.6875%	   |  54.6875%	  |   55.3571%
-- Precision	 | 22.7612%	  | 21.1397%	|   21.2092%	   |  28.1572%	  |   21.4836%
-- Recall	   | 56.4815%	  | 52.7523%	|   53.125%	     |  548270%	    |   54.5233%
-- F1-measure | 32.4468%   |	30.1837%	|   30.3155%	   |  37.2064%	  |   30.8224%
+- Accuracy	 | 64.84374%  | 64.4531%	|   61.71875%    |  63.08593%   |   63.03571%
+- Precision	 | 29.97812%  | 30.4017%	|   26.0541%	   |  35.6701%	  |   27.5161%
+- Recall	   | 64.77541%  | 64.2202%	|   57.9326%     |  63.0237%	  |   62.8362%
+- F1-measure | 40.98729%  |	41.2675%	|   35.9433%	   |  45.5563%	  |   38.2725%
 - The Confusion Matrix can find on our report due to the format reason of Readme. It is hard to present clearly.
 
                   
