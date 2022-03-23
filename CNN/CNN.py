@@ -114,7 +114,7 @@ if __name__ == '__main__':
                 print('Epoch [{}/{}], Step [{}/{}], Loss: {:.4f}, Accuracy: {:.2f}%'
                       .format(epoch + 1, num_epochs, i + 1, total_step, loss.item(), (correct / total) * 100))
 
-    torch.save(model, 'CNN_Model.pt')
+    torch.save(model.state_dict(), 'CNN_Model.pt')
     print("model save successfully")
     model_load = CNN()
     model_load.load_state_dict(torch.load('CNN_Model.pt'), strict=False)
