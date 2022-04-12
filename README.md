@@ -15,5 +15,5 @@
 - In the same method as mentioned above, we using balanced data, then have the new ten model(CNN_Update_Kfold0.pt to CNN_Update_Kfold9.pt).
 - 
 # How to run
-- Open the whole project, run the demo.py under CNN folder. Then it will show the results. 
-- Open CNN_Part2_Kfold folder, run the Demo_KFOLD.py. Then it will show the results .
+- Open the whole project, run the CNN.py under CNN folder. Then it will show the results. Demo.py will give the cofusion matrix. 
+- Open CNN_Part2_Kfold folder, run the CNN_KFOLD.py. Then it will show the results .Demo_KFOLD.py will give the cofusion matrix. 
